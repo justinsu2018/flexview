@@ -1,0 +1,124 @@
+@charset "UTF-8";
+
+:root {
+    --fontsize: 12px;
+    --bgcolor: black;
+    --cardradius: 5px;
+    --card-color: #fff;
+    --card-border-color: #000;
+    --card-nav-color: gray;
+    --header-logo-color: white;
+    --article-color: black;
+    --article-fontsize: 16px;
+    --selection-color: darkgray;
+    --selection-bg-color: white;
+}
+
+html {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+body {
+    margin: 0;
+    overflow-y: auto;
+}
+
+header {
+    height: var(--header-height);
+    background-color: var(--bgcolor);
+    border-bottom: 1px solid var(--bgcolor);
+    position: fixed;
+    width: 100vw;
+    z-index: 100;
+    vertical-align: middle;
+}
+
+header nav ul {
+    display: inline-flex;
+    list-style-type: none;
+    color:white;
+    margin: 5;
+    padding: 20;
+}
+
+header nav li {
+   width: 60px
+}
+
+header nav li a {
+    text-decoration: none;
+    color: white
+}
+
+header nav li a::hover {
+    color:yellow;
+}
+
+section {
+    display: inline-flex;
+    flex-wrap: wrap;
+    position: relative;
+    top: 51px;
+}
+
+.main-content {
+    position: relative;
+    width: 100%;
+}
+
+.logo {
+    padding: 0.25em;
+    margin: 0;
+    width: 10vw;
+    color: var(--header-logo-color);
+    font-size: xx-large;
+}
+
+article {
+    padding: 10px;
+    margin: 10px;
+    background: var(--card-color);
+    border: 1px solid var(--card-border-color);
+    width: 300px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.article-content {
+    height: 200px;
+    width: 100%;
+    vertical-align: top;
+    background-color: var(--card-color);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: var(--article-fontsize);
+}
+
+.article-content ul {
+    list-style-position: outside;
+    list-style-type: none;
+}
+
+.article-content ul li {
+    color: var(--article-color);
+}
+
+.article-title {
+    margin: 0;
+    padding: 0;
+    font-size: x-large;
+    color: var(--article-color);
+    text-align: lefts;
+    vertical-align: middle;
+}
+
+article:hover {
+    border: 2px var(--selection-color) solid;
+    background-color: var(--selection-bg-color);
+    box-shadow: 5px 5px 5px black;
+}
+
+.article-content:hover {
+    background-color: inherit;
+}
