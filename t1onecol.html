@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>test site</title>
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 14px;
+
+            --select_width: 200px;
+            --select_height: 30px;
+            --select_margin: 20px;
+            --sitemajor_color: gainsboro;
+            --siteobject_border_color: gray;
+            --card_height: 300px;
+            --site_minwidth: calc((40px + --select_width) * 2);
+        }
+
+        html,
+        body {
+            height: 100vh;
+            min-height: 100vh;
+            min-width: 100%;
+            width: 100%;
+            overflow-y: auto;
+            min-width: var(--site_minwidth);
+        }
+
+        divcontainer {
+            display: flex;
+            flex-direction: row;
+        }
+
+        dv2 {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        submenu {
+            display: inline-flex;
+            border-bottom: 1px solid var(--sitemajor_color);
+            height: 70px;
+        }
+
+        submenu select {
+            margin: var(--select_margin);
+            height: var(--select_height);
+            min-height: var(--select_height);
+            width: var(--select_width);
+
+            text-align: center;
+        }
+
+        select {
+            border: none;
+            border-bottom: 1px solid var(--siteobject_border_color);
+        }
+
+        select:focus {
+            outline: none;
+        }
+
+
+        dvcontent {
+            display: inline-flex;
+            flex-direction: column;
+            overflow-y: auto;
+            height: calc(100vh - );
+            vertical-align: top;
+        }
+
+        .card {
+            border: 1px solid var(--siteobject_border_color);
+            width: 48%;
+            min-width: 50%;
+            display: flex;
+            flex-direction: column;
+            height: 170px;
+            margin: 10px 20px 20px 10px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+
+        .card-title {
+            background-color: var(--siteobject_border_color);
+            color: white;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        .card p {
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <divcontainer>
+        <dv2>
+            <submenu>
+                <select name="seltopic" id="ddltopic">
+                    <option value="">-- Select Topic --</option>
+                    <option value="country">Country</option>
+                </select>
+                <select name="selexamkind" id="ddlexamkind">
+                    <option value="">-- Select Exam Type --</option>
+                    <option value="all">All</option>
+                    <option value="writing">Writing 2</option>
+                    <option value="speaking">Speaking 1</option>
+                    <option value="speaking">Speaking 2</option>
+                    <option value="speaking">Speaking 3</option>
+                </select>
+            </submenu>
+            <dvcontent>
+                <div class="card">
+                    <div class="card-title">
+                        test title
+                    </div>
+                    <p style="overflow-y: auto;">
+                        The report, which will be launched officially by housing minister Darragh O’Brien, notes that
+                        those
+                        older people expecting to remain renting for life feel that way as they believe no other
+                        accommodation options are open to them.
+
+                        The study was compiled from interviews with “representative older renters” and a trawl of the
+                        Residential Tenancy Board’s (RTB's) datasets, its authors said. It focused on renters aged over
+                        55.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        test title
+                    </div>
+                    <p style="overflow-y: auto;">
+                        The report, which will be launched officially by housing minister Darragh O’Brien, notes that
+                        those
+                        older people expecting to remain renting for life feel that way as they believe no other
+                        accommodation options are open to them.
+                        <br />
+                        The study was compiled from interviews with “representative older renters” and a trawl of the
+                        Residential Tenancy Board’s (RTB's) datasets, its authors said. It focused on renters aged over
+                        55.
+                        <br />
+                        The report, which will be launched officially by housing minister Darragh O’Brien, notes that
+                        those
+                        older people expecting to remain renting for life feel that way as they believe no other
+                        accommodation options are open to them.
+                        <br />
+                        The study was compiled from interviews with “representative older renters” and a trawl of the
+                        Residential Tenancy Board’s (RTB's) datasets, its authors said. It focused on renters aged over
+                        55.
+
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        test title
+                    </div>
+                    <p style="overflow-y: auto;">
+                        The report, which will be launched officially by housing minister Darragh O’Brien, notes that
+                        those
+                        older people expecting to remain renting for life feel that way as they believe no other
+                        accommodation options are open to them.
+
+                        The study was compiled from interviews with “representative older renters” and a trawl of the
+                        Residential Tenancy Board’s (RTB's) datasets, its authors said. It focused on renters aged over
+                        55.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-title">
+                        test title
+                    </div>
+                    <p style="overflow-y: auto;">
+                        The report, which will be launched officially by housing minister Darragh O’Brien, notes that
+                        those
+                        older people expecting to remain renting for life feel that way as they believe no other
+                        accommodation options are open to them.
+
+                        The study was compiled from interviews with “representative older renters” and a trawl of the
+                        Residential Tenancy Board’s (RTB's) datasets, its authors said. It focused on renters aged over
+                        55.
+                    </p>
+                </div>
+            </dvcontent>
+        </dv2>
+
+    </divcontainer>
+</body>
+
+</html>
