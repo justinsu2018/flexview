@@ -1,0 +1,104 @@
+<style>
+  /* General table styling */
+  .table {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .cell {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid black;
+    text-align: center;
+  }
+
+  .header {
+    font-weight: bold;
+    background-color: #f2f2f2;
+  }
+
+  /* 🖥️ Desktop: Normal Table */
+  @media (min-width: 1024px) {
+    .table {
+      max-width: 800px;
+    }
+    .row {
+      flex-direction: row;
+    }
+    .cell {
+      flex: 1;
+    }
+  }
+
+  /* 📱 Tablet Mode (600px - 1024px) */
+  @media (max-width: 1024px) and (min-width: 600px) {
+    .table {
+      max-width: 600px;
+    }
+    .cell {
+      font-size: 14px;
+      padding: 6px;
+    }
+  }
+
+  /* 📲 Mobile Mode (≤ 600px) */
+  @media (max-width: 600px) {
+    .table {
+      display: block;
+    }
+
+    .row {
+      display: flex;
+      flex-direction: column;
+      border-bottom: 2px solid #ddd;
+      padding: 10px;
+    }
+
+    .cell {
+      width: 100%;
+      border: none;
+      text-align: left;
+      padding: 5px 10px;
+    }
+
+    .cell::before {
+      content: attr(data-label);
+      font-weight: bold;
+      display: block;
+      color: #333;
+    }
+
+    .header {
+      display: none; /* Hide headers in mobile view */
+    }
+  }
+</style>
+
+<div class="table">
+  <div class="row header">
+    <div class="cell">Name</div>
+    <div class="cell">Age</div>
+    <div class="cell">City</div>
+  </div>
+  
+  <div class="row">
+    <div class="cell" data-label="Name">Alice</div>
+    <div class="cell" data-label="Age">25</div>
+    <div class="cell" data-label="City">New York</div>
+  </div>
+
+  <div class="row">
+    <div class="cell" data-label="Name">Bob</div>
+    <div class="cell" data-label="Age">30</div>
+    <div class="cell" data-label="City">Los Angeles</div>
+  </div>
+</div>
