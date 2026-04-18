@@ -1,0 +1,32 @@
+name: Hand-on CI-CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ] # 當 main 分支有 push 時觸發
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # --- CI 階段 ---
+  Build-Stage:
+    runs-on: ci-worker  # 指向你開了 dockerEnabled: true 的 Runner
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: |
+          # 這裡因為你有開 dockerEnabled，所以可以直接下 docker 指令
+          docker build -t my-app:${{ github.sha }} .
+          docker images
+          echo "Successfully built the image!"
+
+  # --- CD 階段 ---
+  Deploy-Stage:
+    needs: Build-Stage # 確保 Build 成功才跑 Deploy
+    runs-on: cd-worker # 指向你的 CD Runner
+    steps:
+      - name: Deploy to Local
+        run: |
+          echo "Deploying version ${{ github.sha }} to local environment..."
+          # 這裡可以寫 kubectl apply -f deployment.yaml 等指令
