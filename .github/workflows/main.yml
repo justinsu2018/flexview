@@ -11,6 +11,9 @@ jobs:
   Build-Stage:
     runs-on: ci-worker  # 指向你開了 dockerEnabled: true 的 Runner
     steps:
+      - name: Disable SSL Verify
+        run: git config --global http.sslVerify false # 暫時跳過憑證檢查
+
       - name: Checkout Code
         uses: actions/checkout@v4
 
