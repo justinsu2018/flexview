@@ -1,0 +1,29 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: ci-runner
+  namespace: actions-runner-system
+spec:
+  replicas: 1
+  template:
+    spec:
+      repository: justinsu2018/flexview
+      labels:
+        - ci-worker
+      # 關鍵修正：換成最新的 Image，解決 Git 版本過舊問題
+      image: summerwind/actions-runner:latest 
+      dockerEnabled: true
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: cd-runner
+  namespace: actions-runner-system
+spec:
+  replicas: 1
+  template:
+    spec:
+      repository: justinsu2018/flexview
+      labels:
+        - cd-worker
+      image: summerwind/actions-runner:latest

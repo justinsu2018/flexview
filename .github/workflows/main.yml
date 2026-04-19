@@ -1,41 +1,21 @@
 name: Hand-on CI-CD Pipeline
-
-on:
-  push:
-    branches: [ "main" ] # 當 main 分支有 push 時觸發
-  pull_request:
-    branches: [ "main" ]
+on: [push]
 
 jobs:
-  # --- CI 階段 ---
   Build-Stage:
-    runs-on: ci-worker  # 指向你開了 dockerEnabled: true 的 Runner
+    runs-on: ci-worker
     steps:
-      - name: Disable SSL Verify
-        run: git config --global http.sslVerify false # 暫時跳過憑證檢查
+      - name: Disable SSL and Fix Git
+        run: |
+          git config --global http.sslVerify false
+          git config --global http.postBuffer 524288000 # 增加緩衝區，預防大檔案失敗
 
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          # 停用預設的 Token 認證，改用簡單模式
+          persist-credentials: false 
 
       - name: Build Docker Image
         run: |
-          # 這裡因為你有開 dockerEnabled，所以可以直接下 docker 指令
-          docker build -t my-app:${{ github.sha }} .
-          docker images
-          echo "Successfully built the image!"
-
-  # --- CD 階段 ---
-Deploy-Stage:
-    needs: Build-Stage
-    runs-on: cd-worker
-    steps:
-      - uses: actions/checkout@v4
-      - name: Deploying to k3d
-        run: |
-          # 告訴 k3d 要部署什麼
-          kubectl apply -f k8s-deploy.yaml
-          
-          # 顯示部署結果
-          echo "Checking status..."
-          kubectl get pods
-          kubectl get svc
+          docker build -t my-app:latest .
