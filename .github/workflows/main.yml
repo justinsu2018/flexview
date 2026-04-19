@@ -25,11 +25,17 @@ jobs:
           echo "Successfully built the image!"
 
   # --- CD 階段 ---
-  Deploy-Stage:
-    needs: Build-Stage # 確保 Build 成功才跑 Deploy
-    runs-on: cd-worker # 指向你的 CD Runner
+Deploy-Stage:
+    needs: Build-Stage
+    runs-on: cd-worker
     steps:
-      - name: Deploy to Local
+      - uses: actions/checkout@v4
+      - name: Deploying to k3d
         run: |
-          echo "Deploying version ${{ github.sha }} to local environment..."
-          # 這裡可以寫 kubectl apply -f deployment.yaml 等指令
+          # 告訴 k3d 要部署什麼
+          kubectl apply -f k8s-deploy.yaml
+          
+          # 顯示部署結果
+          echo "Checking status..."
+          kubectl get pods
+          kubectl get svc
