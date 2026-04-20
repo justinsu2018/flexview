@@ -1,21 +1,36 @@
-name: Hand-on CI-CD Pipeline
-on: [push]
+name: Force-CI-CD
+on: [push, workflow_dispatch] # 增加手動觸發按鈕
 
 jobs:
-  Build-Stage:
+  Build-and-Deploy:
     runs-on: ci-worker
     steps:
-      - name: Disable SSL and Fix Git
+      - name: Force Fix Network and Git
         run: |
+          sudo ip link set dev eth0 mtu 1400 || true
           git config --global http.sslVerify false
-          git config --global http.postBuffer 524288000 # 增加緩衝區，預防大檔案失敗
+          git config --global http.version HTTP/1.1
 
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          # 停用預設的 Token 認證，改用簡單模式
-          persist-credentials: false 
+          token: ${{ github.token }} # 使用 Actions 內建臨時權限
 
-      - name: Build Docker Image
+      - name: Docker Build (DinD)
         run: |
-          docker build -t my-app:latest .
+          # 檢查 docker 是否可用
+          docker info
+          docker build -t my-app:${{ github.sha }} .
+          docker tag my-app:${{ github.sha }} my-app:latest
+
+      - name: Push Image to k3d
+        run: |
+          # 因為 Runner 跟 k3d 都在你的 WSL 裡
+          # 強制將剛 build 好的 image 注入到 k3d 叢集
+          k3d image import my-app:latest -c my-cicd-cluster || echo "Skip k3d import"
+
+      - name: Deploy to k3d
+        run: |
+          # 使用專案目錄下的 deployment.yml
+          kubectl apply -f deployment.yml
+          kubectl rollout status deployment/my-app-name --timeout=30s
